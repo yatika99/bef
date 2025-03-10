@@ -5,12 +5,44 @@
 
 
 import streamlit as st
+import base64
+
+# Custom Styling for Blue & White Theme with Watermark
+def add_custom_css():
+    custom_css = """
+    <style>
+        body {
+            background-color: #f0f8ff !important; /* Light blue background */
+            color: #1E3A8A !important; /* Dark blue text */
+        }
+        .stApp {
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            background-size: cover;
+        }
+        .sidebar .sidebar-content {
+            background-color: #1E3A8A !important; /* Dark blue sidebar */
+            color: white !important;
+        }
+        .css-1d391kg, .stButton>button {
+            background-color: #1E3A8A !important;
+            color: white !important;
+            border-radius: 5px;
+        }
+        .css-1d391kg:hover, .stButton>button:hover {
+            background-color: #3B82F6 !important;
+        }
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+# Apply Custom CSS\add_custom_css()
 
 # Mock Database (In-memory for simplicity)
 users = {}
 
 # Navigation
 st.sidebar.title("Navigation")
+st.sidebar.markdown("---")
 page = st.sidebar.radio("Go to", ["Homepage", "Sign Up", "Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management"])
 
 # Homepage
@@ -86,4 +118,3 @@ elif page == "Investments":
     investments()
 elif page == "Debt Management":
     debt_management()
-
