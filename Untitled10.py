@@ -77,11 +77,13 @@ def homepage():
     page = st.sidebar.radio("Go to", ["Home", "Pricing", "Blogs & Resources", "Customer Testimonials", "Contact Us"])
     
     # Sign Up / Login Button on Top Right Corner
-    st.markdown("""
-    <div class='top-right-button'>
-        <button onclick="window.location.href='#signup'">Sign Up / Login</button>
-    </div>
-    """, unsafe_allow_html=True)
+    if "logged_in" not in st.session_state:
+        st.session_state["logged_in"] = False
+    
+    if not st.session_state["logged_in"]:
+        if st.button("Sign Up / Login", key="login_button"):
+            st.session_state["show_signup"] = True
+            st.rerun()
     
     if page == "Home":
         st.title("Welcome to Your Financial Journey")
@@ -133,5 +135,9 @@ def homepage():
                 st.session_state.show_signup = False
                 st.success("Login successful! Redirecting to dashboard...")
                 st.rerun()
+
+    # Redirect to Dashboard if logged in
+    if st.session_state.get("logged_in", False):
+        st.switch_page("dashboard.py")
 
 homepage()
