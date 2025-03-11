@@ -32,6 +32,9 @@ def add_custom_css():
             position: relative;
             text-align: center;
             margin-bottom: 30px;
+            background-color: #BBDEFB; /* Light blue background behind banner */
+            padding: 20px;
+            border-radius: 10px;
         }
         .banner-text {
             position: absolute;
