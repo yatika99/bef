@@ -130,10 +130,10 @@ def homepage():
                 st.session_state.logged_in = True
                 st.session_state.show_signup = False
                 st.success("Login successful! Redirecting to dashboard...")
-                st.rerun()
+                st.switch_page("pages/dashboard.py")
 
     # Redirect to Dashboard if logged in
     if st.session_state.get("logged_in", False):
-        st.switch_page("dashboard.py")
+        st.switch_page("pages/dashboard.py")
 
 homepage()
