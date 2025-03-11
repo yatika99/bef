@@ -12,40 +12,48 @@ def add_custom_css():
     custom_css = """
     <style>
         body {
-            background-color: #f0f8ff !important; /* Light blue background */
-            color: #1E3A8A !important; /* Dark blue text */
-            font-family: 'Arial', sans-serif;
+            background-color: #E3F2FD !important; /* Light blue background */
+            color: #0D47A1 !important; /* Dark blue text */
+            font-family: 'Poppins', sans-serif;
         }
         .stApp {
             background-color: white;
         }
-        .css-1d391kg, .stButton>button {
-            background-color: #1E3A8A !important;
+        .stButton>button {
+            background-color: #0D47A1 !important;
             color: white !important;
             border-radius: 5px;
+            font-weight: bold;
         }
-        .css-1d391kg:hover, .stButton>button:hover {
-            background-color: #3B82F6 !important;
+        .stButton>button:hover {
+            background-color: #1565C0 !important;
         }
         .banner-container {
             position: relative;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .banner-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             color: white;
             padding: 20px;
             border-radius: 10px;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
         }
         .justified-text {
             text-align: justify;
+            font-size: 16px;
+        }
+        .section-heading {
+            font-weight: bold;
+            color: #0D47A1;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
     """
@@ -69,9 +77,10 @@ def homepage():
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### **Join 500,000+ Indians improving their financial future!**")
+    st.markdown("<br>", unsafe_allow_html=True)  # Space between banner and next section
+    st.markdown("### <div class='section-heading'>Join 500,000+ Indians improving their financial future!</div>", unsafe_allow_html=True)
     
-    st.markdown("## **About Us**")
+    st.markdown("## <div class='section-heading'>About Us</div>", unsafe_allow_html=True)
     st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
     
     # Left-Side Navigation Menu
@@ -80,19 +89,19 @@ def homepage():
         menu = st.radio("Go to", ["Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
     
     if menu == "Pricing":
-        st.markdown("## **Pricing**")
+        st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
         st.markdown("<div class='justified-text'>Affordable pricing plans tailored to suit different financial needs.</div>", unsafe_allow_html=True)
     elif menu == "Offerings":
-        st.markdown("## **Offerings**")
-        st.markdown("<div class='justified-text'>- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking</div>", unsafe_allow_html=True)
+        st.markdown("## <div class='section-heading'>Offerings</div>", unsafe_allow_html=True)
+        st.markdown("<div class='justified-text'>- Smart Budgeting Tools<br>- Investment Guidance<br>- Debt Management Solutions<br>- Savings Goal Tracking</div>", unsafe_allow_html=True)
     elif menu == "Customer Testimonials":
-        st.markdown("## **Customer Testimonials**")
+        st.markdown("## <div class='section-heading'>Customer Testimonials</div>", unsafe_allow_html=True)
         st.markdown("<div class='justified-text'>'This platform transformed my financial habits! - Raj, Mumbai'</div>", unsafe_allow_html=True)
     elif menu == "Blogs & Resources":
-        st.markdown("## **Blogs & Resources**")
+        st.markdown("## <div class='section-heading'>Blogs & Resources</div>", unsafe_allow_html=True)
         st.markdown("<div class='justified-text'>Read expert financial advice and stay updated on money management trends.</div>", unsafe_allow_html=True)
     elif menu == "Contact Us":
-        st.markdown("## **Contact Us**")
+        st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
         st.markdown("<div class='justified-text'>Email: support@finwebsite.com | Phone: +91-1234567890</div>", unsafe_allow_html=True)
     
     # Sign Up Pop-up
