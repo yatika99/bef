@@ -30,26 +30,6 @@ def add_custom_css():
         .stButton>button:hover {
             background-color: #1565C0 !important;
         }
-        .banner-container {
-            position: relative;
-            text-align: center;
-            margin-bottom: 30px;
-            background-color: #BBDEFB; /* Light blue background behind banner */
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .banner-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 28px;
-            font-weight: bold;
-        }
         .justified-text {
             text-align: justify;
             font-size: 16px;
@@ -71,46 +51,30 @@ def homepage():
     st.sidebar.title("Navigation")
     page = st.sidebar.radio("Go to", ["Home", "Pricing", "Blogs & Resources", "Customer Testimonials", "Contact Us"])
     
-    # Sign Up / Login Button on Top Right Corner
+    # Sign Up / Login Logic
     if "logged_in" not in st.session_state:
         st.session_state["logged_in"] = False
     
-    col1, col2 = st.columns([8, 2])
-    with col2:
-        if st.button("Sign Up / Login", key="login_button"):
-            st.session_state["show_signup"] = True
-            st.rerun()
-    
     if page == "Home":
         st.title("Welcome to Your Financial Journey")
-        
-        # Enlarged Banner Image with Hook Quote
-        st.markdown("""
-        <div class="banner-container">
-            <img src="https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg" width="100%">
-            <div class="banner-text">See how much you can save in just 2 minutes!</div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("### <div class='section-heading'>Join 500,000+ Indians improving their financial future!</div>", unsafe_allow_html=True)
-        
-        st.markdown("## <div class='section-heading'>About Us</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
+        st.markdown("### Join 500,000+ Indians improving their financial future!")
+        st.markdown("## About Us")
+        st.markdown("We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.")
     
     elif page == "Pricing":
-        st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>Choose the plan that fits your financial goals the best.</div>", unsafe_allow_html=True)
+        st.markdown("## Pricing")
+        st.markdown("Choose the plan that fits your financial goals the best.")
     
     elif page == "Blogs & Resources":
-        st.markdown("## <div class='section-heading'>Blogs & Resources</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>Explore our latest insights on saving and investing.</div>", unsafe_allow_html=True)
+        st.markdown("## Blogs & Resources")
+        st.markdown("Explore our latest insights on saving and investing.")
     
     elif page == "Customer Testimonials":
-        st.markdown("## <div class='section-heading'>Customer Testimonials</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>Read stories from real users who transformed their financial future.</div>", unsafe_allow_html=True)
+        st.markdown("## Customer Testimonials")
+        st.markdown("Read stories from real users who transformed their financial future.")
     
     elif page == "Contact Us":
-        st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
+        st.markdown("## Contact Us")
         with st.form("contact_form"):
             name = st.text_input("Your Name")
             email = st.text_input("Your Email")
@@ -119,8 +83,8 @@ def homepage():
             if submit:
                 st.success("Thank you for reaching out! We'll get back to you soon.")
     
-    # Sign Up / Login Form
-    if st.session_state.get("show_signup", False):
+    # Login/Signup and Redirect to Dashboard
+    if not st.session_state["logged_in"]:
         with st.form("signup_form"):
             st.title("Sign Up / Login")
             email = st.text_input("Enter your email:")
@@ -128,12 +92,51 @@ def homepage():
             submit = st.form_submit_button("Get Started")
             if submit:
                 st.session_state.logged_in = True
-                st.session_state.show_signup = False
                 st.success("Login successful! Redirecting to dashboard...")
-                st.switch_page("dashboard")
+                st.experimental_rerun()
+    else:
+        dashboard()
 
-    # Redirect to Dashboard if logged in
-    if st.session_state.get("logged_in", False):
-        st.switch_page("dashboard")
+def dashboard():
+    st.sidebar.title("Dashboard Navigation")
+    section = st.sidebar.radio("Go to", ["Dashboard", "Budget", "Savings", "Investments", "Debt Management", "Profile", "Settings"])
+    
+    st.title("Dashboard")
+    st.subheader("Welcome, User!")
+    
+    if section == "Dashboard":
+        st.metric(label="Financial Health Score", value="78/100", delta="Improve by increasing savings")
+        st.markdown("## Segments")
+        st.button("Budget")
+        st.button("Savings")
+        st.button("Investments")
+        st.button("Debt Management")
+    
+    elif section == "Budget":
+        st.markdown("## Budget Overview")
+        st.markdown("Manage your expenses wisely.")
+    
+    elif section == "Savings":
+        st.markdown("## Savings Plan")
+        st.markdown("Track and grow your savings.")
+    
+    elif section == "Investments":
+        st.markdown("## Investment Portfolio")
+        st.markdown("Monitor and optimize your investments.")
+    
+    elif section == "Debt Management":
+        st.markdown("## Debt Reduction Strategies")
+        st.markdown("Plan how to reduce and manage debt effectively.")
+    
+    elif section == "Profile":
+        st.markdown("## User Profile")
+        st.markdown("Manage your personal information and preferences.")
+    
+    elif section == "Settings":
+        st.markdown("## Settings")
+        st.markdown("Customize your experience.")
+        if st.button("Sign Out"):
+            st.session_state.logged_in = False
+            st.experimental_rerun()
 
 homepage()
