@@ -44,7 +44,14 @@ users = {}
 # Navigation
 st.sidebar.title("Navigation")
 st.sidebar.markdown("---")
-page = st.sidebar.selectbox("Go to", ["Homepage", "Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management"], index=0)
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    page = st.sidebar.selectbox("Go to", ["Homepage", "Sign Up / Login"])
+else:
+    page = st.sidebar.selectbox("Go to", ["Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management", "Logout"])
 
 # Homepage
 def homepage():
@@ -77,7 +84,7 @@ def homepage():
     # Sign Up Pop-up
     if st.button("Sign Up / Login"):
         st.session_state.show_signup = True
-
+    
     if st.session_state.get("show_signup", False):
         with st.form("signup_form"):
             st.title("Sign Up")
@@ -86,6 +93,7 @@ def homepage():
             submit = st.form_submit_button("Get Started")
             if submit:
                 users[email] = {'goal': goal, 'savings': 0, 'expenses': {}}
+                st.session_state.logged_in = True
                 st.session_state.show_signup = False
                 st.success("Account created successfully!")
 
@@ -130,8 +138,15 @@ def debt_management():
     st.title("Debt & Credit Management")
     st.write("Track your loans, credit scores, and repayments here.")
 
+# Logout
+def logout():
+    st.session_state.logged_in = False
+    st.experimental_rerun()
+
 # Page Routing
 if page == "Homepage":
+    homepage()
+elif page == "Sign Up / Login":
     homepage()
 elif page == "Dashboard":
     dashboard()
@@ -143,3 +158,5 @@ elif page == "Investments":
     investments()
 elif page == "Debt Management":
     debt_management()
+elif page == "Logout":
+    logout()
