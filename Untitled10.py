@@ -50,7 +50,27 @@ def homepage():
     st.title("Welcome to Your Financial Journey")
     st.subheader("See how much you can save in just 2 minutes!")
     st.write("Join 500,000+ Indians improving their financial future!")
-    if st.button("Start Your Financial Journey"):
+    
+    st.markdown("## About Us")
+    st.write("We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.")
+    
+    st.markdown("## Pricing")
+    st.write("Affordable pricing plans tailored to suit different financial needs.")
+    
+    st.markdown("## Offerings")
+    st.write("- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking")
+    
+    st.markdown("## Customer Testimonials")
+    st.write("'This platform transformed my financial habits! - Raj, Mumbai'")
+    
+    st.markdown("## Blogs & Resources")
+    st.write("Read expert financial advice and stay updated on money management trends.")
+    
+    st.markdown("## Contact Us")
+    st.write("Email: support@finwebsite.com | Phone: +91-1234567890")
+    
+    st.markdown("## Sign Up / Login")
+    if st.button("Sign Up / Login"):
         st.experimental_set_query_params(page="Sign Up")
 
 # Signup Page
