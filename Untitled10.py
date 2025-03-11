@@ -35,7 +35,8 @@ def add_custom_css():
     """
     st.markdown(custom_css, unsafe_allow_html=True)
 
-# Apply Custom CSS\add_custom_css()
+# Apply Custom CSS
+add_custom_css()
 
 # Mock Database (In-memory for simplicity)
 users = {}
@@ -43,7 +44,7 @@ users = {}
 # Navigation
 st.sidebar.title("Navigation")
 st.sidebar.markdown("---")
-page = st.sidebar.radio("Go to", ["Homepage", "Sign Up", "Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management"])
+page = st.sidebar.selectbox("Go to", ["Homepage", "Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management"], index=0)
 
 # Homepage
 def homepage():
@@ -54,33 +55,39 @@ def homepage():
     st.markdown("## About Us")
     st.write("We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.")
     
-    st.markdown("## Pricing")
-    st.write("Affordable pricing plans tailored to suit different financial needs.")
+    # Dropdown menu for other sections
+    menu = st.selectbox("More Information", ["Select", "Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
     
-    st.markdown("## Offerings")
-    st.write("- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking")
+    if menu == "Pricing":
+        st.markdown("## Pricing")
+        st.write("Affordable pricing plans tailored to suit different financial needs.")
+    elif menu == "Offerings":
+        st.markdown("## Offerings")
+        st.write("- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking")
+    elif menu == "Customer Testimonials":
+        st.markdown("## Customer Testimonials")
+        st.write("'This platform transformed my financial habits! - Raj, Mumbai'")
+    elif menu == "Blogs & Resources":
+        st.markdown("## Blogs & Resources")
+        st.write("Read expert financial advice and stay updated on money management trends.")
+    elif menu == "Contact Us":
+        st.markdown("## Contact Us")
+        st.write("Email: support@finwebsite.com | Phone: +91-1234567890")
     
-    st.markdown("## Customer Testimonials")
-    st.write("'This platform transformed my financial habits! - Raj, Mumbai'")
-    
-    st.markdown("## Blogs & Resources")
-    st.write("Read expert financial advice and stay updated on money management trends.")
-    
-    st.markdown("## Contact Us")
-    st.write("Email: support@finwebsite.com | Phone: +91-1234567890")
-    
-    st.markdown("## Sign Up / Login")
+    # Sign Up Pop-up
     if st.button("Sign Up / Login"):
-        st.experimental_set_query_params(page="Sign Up")
+        st.session_state.show_signup = True
 
-# Signup Page
-def signup():
-    st.title("Sign Up")
-    email = st.text_input("Enter your email:")
-    goal = st.selectbox("What’s your financial goal?", ["Save more", "Invest wisely", "Reduce debt"])
-    if st.button("Get Started"):
-        users[email] = {'goal': goal, 'savings': 0, 'expenses': {}}
-        st.experimental_set_query_params(page="Dashboard", email=email)
+    if st.session_state.get("show_signup", False):
+        with st.form("signup_form"):
+            st.title("Sign Up")
+            email = st.text_input("Enter your email:")
+            goal = st.selectbox("What’s your financial goal?", ["Save more", "Invest wisely", "Reduce debt"])
+            submit = st.form_submit_button("Get Started")
+            if submit:
+                users[email] = {'goal': goal, 'savings': 0, 'expenses': {}}
+                st.session_state.show_signup = False
+                st.success("Account created successfully!")
 
 # Dashboard
 def dashboard():
@@ -126,8 +133,6 @@ def debt_management():
 # Page Routing
 if page == "Homepage":
     homepage()
-elif page == "Sign Up":
-    signup()
 elif page == "Dashboard":
     dashboard()
 elif page == "Budgeting":
