@@ -25,6 +25,7 @@ def add_custom_css():
             color: white !important;
             border-radius: 5px;
             font-weight: bold;
+            transition: 0.3s;
         }
         .stButton>button:hover {
             background-color: #1565C0 !important;
@@ -59,10 +60,6 @@ def add_custom_css():
             text-align: center;
             margin-top: 20px;
         }
-        .sidebar {
-            background-color: #0D47A1 !important;
-            color: white !important;
-        }
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -70,41 +67,8 @@ def add_custom_css():
 # Apply Custom CSS
 add_custom_css()
 
-# Mock Database (In-memory for simplicity)
-users = {}
-
-def dashboard():
-    st.title("User Dashboard")
-    st.sidebar.title("Dashboard Navigation")
-    dashboard_menu = st.sidebar.radio("Choose a section", ["My Investments", "Financial Tools", "Reports", "Settings", "Logout"])
-    
-    if dashboard_menu == "My Investments":
-        st.markdown("## <div class='section-heading'>My Investments</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>Track and manage your investments efficiently.</div>", unsafe_allow_html=True)
-    elif dashboard_menu == "Financial Tools":
-        st.markdown("## <div class='section-heading'>Financial Tools</div>", unsafe_allow_html=True)
-        loan_amount = st.number_input("Loan Amount", min_value=1000, value=50000)
-        interest_rate = st.number_input("Interest Rate (%)", min_value=1.0, value=7.5)
-        tenure = st.slider("Tenure (in years)", 1, 30, 10)
-        emi = (loan_amount * (interest_rate/1200) * ((1 + interest_rate/1200) ** (tenure * 12))) / (((1 + interest_rate/1200) ** (tenure * 12)) - 1)
-        st.write(f"Your monthly EMI: ₹{emi:.2f}")
-    elif dashboard_menu == "Reports":
-        st.markdown("## <div class='section-heading'>Reports</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>View your financial reports and insights.</div>", unsafe_allow_html=True)
-    elif dashboard_menu == "Settings":
-        st.markdown("## <div class='section-heading'>Settings</div>", unsafe_allow_html=True)
-        st.markdown("<div class='justified-text'>Manage your account preferences.</div>", unsafe_allow_html=True)
-    elif dashboard_menu == "Logout":
-        st.session_state.logged_in = False
-        st.rerun()
-
-# Homepage
 def homepage():
     st.title("Welcome to Your Financial Journey")
-    
-    if st.session_state.get("logged_in", False):
-        dashboard()
-        return
     
     # Enlarged Banner Image with Hook Quote
     st.markdown("""
@@ -114,11 +78,29 @@ def homepage():
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<br>", unsafe_allow_html=True)  # Space between banner and next section
     st.markdown("### <div class='section-heading'>Join 500,000+ Indians improving their financial future!</div>", unsafe_allow_html=True)
     
     st.markdown("## <div class='section-heading'>About Us</div>", unsafe_allow_html=True)
     st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
+    
+    # New Sections
+    st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
+    st.markdown("<div class='justified-text'>Choose the plan that fits your financial goals the best.</div>", unsafe_allow_html=True)
+    
+    st.markdown("## <div class='section-heading'>Blogs & Resources</div>", unsafe_allow_html=True)
+    st.markdown("<div class='justified-text'>Explore our latest insights on saving and investing.</div>", unsafe_allow_html=True)
+    
+    st.markdown("## <div class='section-heading'>Customer Testimonials</div>", unsafe_allow_html=True)
+    st.markdown("<div class='justified-text'>Read stories from real users who transformed their financial future.</div>", unsafe_allow_html=True)
+    
+    st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
+    with st.form("contact_form"):
+        name = st.text_input("Your Name")
+        email = st.text_input("Your Email")
+        message = st.text_area("Your Message")
+        submit = st.form_submit_button("Send Inquiry")
+        if submit:
+            st.success("Thank you for reaching out! We'll get back to you soon.")
     
     # Sign Up / Login
     if st.button("Sign Up / Login"):
@@ -131,11 +113,9 @@ def homepage():
             goal = st.selectbox("What’s your financial goal?", ["Save more", "Invest wisely", "Reduce debt"])
             submit = st.form_submit_button("Get Started")
             if submit:
-                users[email] = {'goal': goal, 'savings': 0, 'expenses': {}}
                 st.session_state.logged_in = True
                 st.session_state.show_signup = False
                 st.success("Login successful! Redirecting to dashboard...")
                 st.rerun()
 
-# Run Homepage
 homepage()
