@@ -60,11 +60,6 @@ def add_custom_css():
             text-align: center;
             margin-top: 20px;
         }
-        .top-right-button {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-        }
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -80,10 +75,12 @@ def homepage():
     if "logged_in" not in st.session_state:
         st.session_state["logged_in"] = False
     
-    if not st.session_state["logged_in"]:
-        if st.button("Sign Up / Login", key="login_button"):
-            st.session_state["show_signup"] = True
-            st.rerun()
+    col1, col2 = st.columns([8, 2])
+    with col2:
+        if not st.session_state["logged_in"]:
+            if st.button("Sign Up / Login", key="login_button"):
+                st.session_state["show_signup"] = True
+                st.rerun()
     
     if page == "Home":
         st.title("Welcome to Your Financial Journey")
