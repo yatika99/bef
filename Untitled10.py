@@ -6,6 +6,7 @@
 
 import streamlit as st
 import base64
+import streamlit.components.v1 as components
 
 # Custom Styling for Blue & White Theme
 def add_custom_css():
@@ -93,7 +94,7 @@ def homepage():
     # Left-Side Navigation Menu
     with st.sidebar:
         st.title("Navigation")
-        menu = st.radio("Go to", ["Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
+        menu = st.radio("Go to", ["Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us", "Financial Tools"])
     
     if menu == "Pricing":
         st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
@@ -110,6 +111,13 @@ def homepage():
     elif menu == "Contact Us":
         st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
         st.markdown("<div class='justified-text'>Email: support@finwebsite.com | Phone: +91-1234567890</div>", unsafe_allow_html=True)
+    elif menu == "Financial Tools":
+        st.markdown("## <div class='section-heading'>Financial Tools</div>", unsafe_allow_html=True)
+        loan_amount = st.number_input("Loan Amount", min_value=1000, value=50000)
+        interest_rate = st.number_input("Interest Rate (%)", min_value=1.0, value=7.5)
+        tenure = st.slider("Tenure (in years)", 1, 30, 10)
+        emi = (loan_amount * (interest_rate/1200) * ((1 + interest_rate/1200) ** (tenure * 12))) / (((1 + interest_rate/1200) ** (tenure * 12)) - 1)
+        st.write(f"Your monthly EMI: ₹{emi:.2f}")
     
     # Sign Up Pop-up
     if st.button("Sign Up / Login"):
