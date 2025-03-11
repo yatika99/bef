@@ -68,42 +68,49 @@ def add_custom_css():
 add_custom_css()
 
 def homepage():
-    st.title("Welcome to Your Financial Journey")
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Home", "Pricing", "Blogs & Resources", "Customer Testimonials", "Contact Us"])
     
-    # Enlarged Banner Image with Hook Quote
-    st.markdown("""
-    <div class="banner-container">
-        <img src="https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg" width="100%">
-        <div class="banner-text">See how much you can save in just 2 minutes!</div>
-    </div>
-    """, unsafe_allow_html=True)
+    if page == "Home":
+        st.title("Welcome to Your Financial Journey")
+        
+        # Enlarged Banner Image with Hook Quote
+        st.markdown("""
+        <div class="banner-container">
+            <img src="https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg" width="100%">
+            <div class="banner-text">See how much you can save in just 2 minutes!</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("### <div class='section-heading'>Join 500,000+ Indians improving their financial future!</div>", unsafe_allow_html=True)
+        
+        st.markdown("## <div class='section-heading'>About Us</div>", unsafe_allow_html=True)
+        st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
     
-    st.markdown("### <div class='section-heading'>Join 500,000+ Indians improving their financial future!</div>", unsafe_allow_html=True)
+    elif page == "Pricing":
+        st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
+        st.markdown("<div class='justified-text'>Choose the plan that fits your financial goals the best.</div>", unsafe_allow_html=True)
     
-    st.markdown("## <div class='section-heading'>About Us</div>", unsafe_allow_html=True)
-    st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
+    elif page == "Blogs & Resources":
+        st.markdown("## <div class='section-heading'>Blogs & Resources</div>", unsafe_allow_html=True)
+        st.markdown("<div class='justified-text'>Explore our latest insights on saving and investing.</div>", unsafe_allow_html=True)
     
-    # New Sections
-    st.markdown("## <div class='section-heading'>Pricing</div>", unsafe_allow_html=True)
-    st.markdown("<div class='justified-text'>Choose the plan that fits your financial goals the best.</div>", unsafe_allow_html=True)
+    elif page == "Customer Testimonials":
+        st.markdown("## <div class='section-heading'>Customer Testimonials</div>", unsafe_allow_html=True)
+        st.markdown("<div class='justified-text'>Read stories from real users who transformed their financial future.</div>", unsafe_allow_html=True)
     
-    st.markdown("## <div class='section-heading'>Blogs & Resources</div>", unsafe_allow_html=True)
-    st.markdown("<div class='justified-text'>Explore our latest insights on saving and investing.</div>", unsafe_allow_html=True)
-    
-    st.markdown("## <div class='section-heading'>Customer Testimonials</div>", unsafe_allow_html=True)
-    st.markdown("<div class='justified-text'>Read stories from real users who transformed their financial future.</div>", unsafe_allow_html=True)
-    
-    st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
-    with st.form("contact_form"):
-        name = st.text_input("Your Name")
-        email = st.text_input("Your Email")
-        message = st.text_area("Your Message")
-        submit = st.form_submit_button("Send Inquiry")
-        if submit:
-            st.success("Thank you for reaching out! We'll get back to you soon.")
+    elif page == "Contact Us":
+        st.markdown("## <div class='section-heading'>Contact Us</div>", unsafe_allow_html=True)
+        with st.form("contact_form"):
+            name = st.text_input("Your Name")
+            email = st.text_input("Your Email")
+            message = st.text_area("Your Message")
+            submit = st.form_submit_button("Send Inquiry")
+            if submit:
+                st.success("Thank you for reaching out! We'll get back to you soon.")
     
     # Sign Up / Login
-    if st.button("Sign Up / Login"):
+    if st.sidebar.button("Sign Up / Login"):
         st.session_state.show_signup = True
     
     if st.session_state.get("show_signup", False):
