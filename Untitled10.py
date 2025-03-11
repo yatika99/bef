@@ -7,17 +7,17 @@
 import streamlit as st
 import base64
 
-# Custom Styling for Blue & White Theme with Watermark
+# Custom Styling for Blue & White Theme
 def add_custom_css():
     custom_css = """
     <style>
         body {
             background-color: #f0f8ff !important; /* Light blue background */
             color: #1E3A8A !important; /* Dark blue text */
+            font-family: 'Arial', sans-serif;
         }
         .stApp {
-            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-            background-size: cover;
+            background-color: white;
         }
         .css-1d391kg, .stButton>button {
             background-color: #1E3A8A !important;
@@ -30,6 +30,7 @@ def add_custom_css():
         .banner-container {
             position: relative;
             text-align: center;
+            margin-bottom: 20px;
         }
         .banner-text {
             position: absolute;
@@ -42,6 +43,9 @@ def add_custom_css():
             border-radius: 10px;
             font-size: 24px;
             font-weight: bold;
+        }
+        .justified-text {
+            text-align: justify;
         }
     </style>
     """
@@ -65,10 +69,10 @@ def homepage():
     </div>
     """, unsafe_allow_html=True)
     
-    st.write("Join 500,000+ Indians improving their financial future!")
+    st.markdown("### **Join 500,000+ Indians improving their financial future!**")
     
-    st.markdown("## About Us")
-    st.write("We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.")
+    st.markdown("## **About Us**")
+    st.markdown("<div class='justified-text'>We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.</div>", unsafe_allow_html=True)
     
     # Left-Side Navigation Menu
     with st.sidebar:
@@ -76,20 +80,20 @@ def homepage():
         menu = st.radio("Go to", ["Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
     
     if menu == "Pricing":
-        st.markdown("## Pricing")
-        st.write("Affordable pricing plans tailored to suit different financial needs.")
+        st.markdown("## **Pricing**")
+        st.markdown("<div class='justified-text'>Affordable pricing plans tailored to suit different financial needs.</div>", unsafe_allow_html=True)
     elif menu == "Offerings":
-        st.markdown("## Offerings")
-        st.write("- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking")
+        st.markdown("## **Offerings**")
+        st.markdown("<div class='justified-text'>- Smart Budgeting Tools\n- Investment Guidance\n- Debt Management Solutions\n- Savings Goal Tracking</div>", unsafe_allow_html=True)
     elif menu == "Customer Testimonials":
-        st.markdown("## Customer Testimonials")
-        st.write("'This platform transformed my financial habits! - Raj, Mumbai'")
+        st.markdown("## **Customer Testimonials**")
+        st.markdown("<div class='justified-text'>'This platform transformed my financial habits! - Raj, Mumbai'</div>", unsafe_allow_html=True)
     elif menu == "Blogs & Resources":
-        st.markdown("## Blogs & Resources")
-        st.write("Read expert financial advice and stay updated on money management trends.")
+        st.markdown("## **Blogs & Resources**")
+        st.markdown("<div class='justified-text'>Read expert financial advice and stay updated on money management trends.</div>", unsafe_allow_html=True)
     elif menu == "Contact Us":
-        st.markdown("## Contact Us")
-        st.write("Email: support@finwebsite.com | Phone: +91-1234567890")
+        st.markdown("## **Contact Us**")
+        st.markdown("<div class='justified-text'>Email: support@finwebsite.com | Phone: +91-1234567890</div>", unsafe_allow_html=True)
     
     # Sign Up Pop-up
     if st.button("Sign Up / Login"):
