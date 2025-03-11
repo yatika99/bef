@@ -58,6 +58,10 @@ def add_custom_css():
             text-align: center;
             margin-top: 20px;
         }
+        .sidebar {
+            background-color: #0D47A1 !important;
+            color: white !important;
+        }
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
