@@ -15,6 +15,11 @@ def add_custom_css():
             background-color: #E3F2FD !important; /* Light blue background */
             color: #0D47A1 !important; /* Dark blue text */
             font-family: 'Poppins', sans-serif;
+            background-image: url('https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            opacity: 0.1;
         }
         .stApp {
             background-color: white;
