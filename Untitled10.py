@@ -77,10 +77,9 @@ def homepage():
     
     col1, col2 = st.columns([8, 2])
     with col2:
-        if not st.session_state["logged_in"]:
-            if st.button("Sign Up / Login", key="login_button"):
-                st.session_state["show_signup"] = True
-                st.rerun()
+        if st.button("Sign Up / Login", key="login_button"):
+            st.session_state["show_signup"] = True
+            st.rerun()
     
     if page == "Home":
         st.title("Welcome to Your Financial Journey")
