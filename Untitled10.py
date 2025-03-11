@@ -19,10 +19,6 @@ def add_custom_css():
             background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
             background-size: cover;
         }
-        .sidebar .sidebar-content {
-            background-color: #1E3A8A !important; /* Dark blue sidebar */
-            color: white !important;
-        }
         .css-1d391kg, .stButton>button {
             background-color: #1E3A8A !important;
             color: white !important;
@@ -41,29 +37,20 @@ add_custom_css()
 # Mock Database (In-memory for simplicity)
 users = {}
 
-# Navigation
-st.sidebar.title("Navigation")
-st.sidebar.markdown("---")
-
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
-if not st.session_state.logged_in:
-    page = st.sidebar.selectbox("Go to", ["Homepage", "Sign Up / Login"])
-else:
-    page = st.sidebar.selectbox("Go to", ["Dashboard", "Budgeting", "Savings & Goals", "Investments", "Debt Management", "Logout"])
-
 # Homepage
 def homepage():
     st.title("Welcome to Your Financial Journey")
+    st.image("https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg", use_column_width=True)
     st.subheader("See how much you can save in just 2 minutes!")
     st.write("Join 500,000+ Indians improving their financial future!")
     
     st.markdown("## About Us")
     st.write("We are committed to helping individuals make informed financial decisions through behavioral science-driven strategies.")
     
-    # Dropdown menu for other sections
-    menu = st.selectbox("More Information", ["Select", "Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
+    # Left-Side Navigation Menu
+    with st.sidebar:
+        st.title("Navigation")
+        menu = st.radio("Go to", ["Pricing", "Offerings", "Customer Testimonials", "Blogs & Resources", "Contact Us"])
     
     if menu == "Pricing":
         st.markdown("## Pricing")
@@ -97,66 +84,5 @@ def homepage():
                 st.session_state.show_signup = False
                 st.success("Account created successfully!")
 
-# Dashboard
-def dashboard():
-    email = st.experimental_get_query_params().get("email", [""])[0]
-    user = users.get(email, {})
-    st.title("Your Financial Dashboard")
-    st.subheader(f"Financial Goal: {user.get('goal', 'Not Set')}")
-    st.metric("Total Savings", f"₹{user.get('savings', 0)}")
-
-# Budgeting Page
-def budgeting():
-    st.title("Budgeting & Expense Tracking")
-    email = st.experimental_get_query_params().get("email", [""])[0]
-    user = users.get(email, {})
-    st.subheader("Add Expenses")
-    category = st.text_input("Category")
-    amount = st.number_input("Amount", min_value=0.0)
-    if st.button("Add Expense"):
-        user['expenses'][category] = user['expenses'].get(category, 0) + amount
-        st.success("Expense Added!")
-
-# Savings & Goals Page
-def savings_goals():
-    st.title("Savings & Goal Setting")
-    email = st.experimental_get_query_params().get("email", [""])[0]
-    user = users.get(email, {})
-    st.subheader("Set Savings Goals")
-    savings_amount = st.number_input("Savings Amount", min_value=0.0)
-    if st.button("Save Money"):
-        user['savings'] += savings_amount
-        st.success("Savings Updated!")
-
-# Investments Page
-def investments():
-    st.title("Investments & Wealth Management")
-    st.write("Smart investment suggestions based on your risk profile coming soon!")
-
-# Debt Management Page
-def debt_management():
-    st.title("Debt & Credit Management")
-    st.write("Track your loans, credit scores, and repayments here.")
-
-# Logout
-def logout():
-    st.session_state.logged_in = False
-    st.experimental_rerun()
-
-# Page Routing
-if page == "Homepage":
-    homepage()
-elif page == "Sign Up / Login":
-    homepage()
-elif page == "Dashboard":
-    dashboard()
-elif page == "Budgeting":
-    budgeting()
-elif page == "Savings & Goals":
-    savings_goals()
-elif page == "Investments":
-    investments()
-elif page == "Debt Management":
-    debt_management()
-elif page == "Logout":
-    logout()
+# Run Homepage
+homepage()
