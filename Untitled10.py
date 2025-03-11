@@ -93,7 +93,7 @@ def homepage():
             if submit:
                 st.session_state.logged_in = True
                 st.success("Login successful! Redirecting to dashboard...")
-                st.experimental_rerun()
+                st.switch_page("dashboard")
     else:
         dashboard()
 
