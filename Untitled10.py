@@ -60,6 +60,11 @@ def add_custom_css():
             text-align: center;
             margin-top: 20px;
         }
+        .top-right-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -70,6 +75,13 @@ add_custom_css()
 def homepage():
     st.sidebar.title("Navigation")
     page = st.sidebar.radio("Go to", ["Home", "Pricing", "Blogs & Resources", "Customer Testimonials", "Contact Us"])
+    
+    # Sign Up / Login Button on Top Right Corner
+    st.markdown("""
+    <div class='top-right-button'>
+        <button onclick="window.location.href='#signup'">Sign Up / Login</button>
+    </div>
+    """, unsafe_allow_html=True)
     
     if page == "Home":
         st.title("Welcome to Your Financial Journey")
@@ -109,10 +121,7 @@ def homepage():
             if submit:
                 st.success("Thank you for reaching out! We'll get back to you soon.")
     
-    # Sign Up / Login
-    if st.sidebar.button("Sign Up / Login"):
-        st.session_state.show_signup = True
-    
+    # Sign Up / Login Form
     if st.session_state.get("show_signup", False):
         with st.form("signup_form"):
             st.title("Sign Up / Login")
