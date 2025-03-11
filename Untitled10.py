@@ -27,6 +27,22 @@ def add_custom_css():
         .css-1d391kg:hover, .stButton>button:hover {
             background-color: #3B82F6 !important;
         }
+        .banner-container {
+            position: relative;
+            text-align: center;
+        }
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -40,8 +56,15 @@ users = {}
 # Homepage
 def homepage():
     st.title("Welcome to Your Financial Journey")
-    st.image("https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg", use_column_width=True)
-    st.subheader("See how much you can save in just 2 minutes!")
+    
+    # Enlarged Banner Image with Hook Quote
+    st.markdown("""
+    <div class="banner-container">
+        <img src="https://t3.ftcdn.net/jpg/07/78/11/08/360_F_778110813_nGqTda2YeQ3IE85xss0YzUGWOozNwC3d.jpg" width="100%">
+        <div class="banner-text">See how much you can save in just 2 minutes!</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.write("Join 500,000+ Indians improving their financial future!")
     
     st.markdown("## About Us")
