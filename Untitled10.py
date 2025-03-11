@@ -96,7 +96,7 @@ def dashboard():
         st.markdown("<div class='justified-text'>Manage your account preferences.</div>", unsafe_allow_html=True)
     elif dashboard_menu == "Logout":
         st.session_state.logged_in = False
-        st.experimental_rerun()
+        st.rerun()
 
 # Homepage
 def homepage():
@@ -135,7 +135,7 @@ def homepage():
                 st.session_state.logged_in = True
                 st.session_state.show_signup = False
                 st.success("Login successful! Redirecting to dashboard...")
-                st.experimental_rerun()
+                st.rerun()
 
 # Run Homepage
 homepage()
